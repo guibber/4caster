@@ -8,19 +8,21 @@ class CasterView extends Ui.SimpleDataField {
     
     function initialize() {
         SimpleDataField.initialize();
-        label = "4Caster";
+        label = "4caster";
     }
 
     function compute(info) {
-    	System.println(info.elapsedDistance);
     	var infoEx = new InfoEx(info);
     	System.println("Current Speed = " + infoEx.GetCurrentSpeed() + " ElapsedDistance = " + infoEx.GetElapsedDistance());
         if (ShouldCompute(infoEx)) {        	
         	return "4:10";
         }
         return "0:00";
-    }    
+    }
+        
     function ShouldCompute(infoEx) {
-    	return infoEx.GetCurrentSpeed() > 0 and infoEx.GetElapsedTime() > 0;
+    	return infoEx.GetCurrentSpeed() > 0 and
+    		   infoEx.GetElapsedTime() > 0 and
+    		   infoEx.GetElapsedDistance() > 0;
     }
 }
