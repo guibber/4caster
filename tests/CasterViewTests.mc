@@ -47,9 +47,9 @@ class CasterViewTests {
 	function TestComputeReturnsResultWhenActive(log) {
 		var helper = new CasterViewTestsHelper();		
 		var obj = new CasterView();
-		var info = helper.NewInfo(1.0, 1.0, 1.0);
+		var info = helper.NewInfo(1.0, 1.0, 60000.0);
 		var actual = obj.compute(info);
-		Test.assertEqualMessage(actual, "26:49" , "Expected 26:49 but got " + actual);			
+		Test.assertEqualMessage(actual, "27:48" , "Expected 27:48 but got " + actual);			
 		return true;		
 	}
 }
