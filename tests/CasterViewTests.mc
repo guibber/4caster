@@ -10,13 +10,23 @@ class CasterViewTests {
 	}
 	
 	(:test)
+	function TestGetNextMilestone(log) {
+		var helper = new CasterViewTestsHelper();
+		helper.ValidateGetDistanceToNextMilestone(0, 1609.34, log);
+		helper.ValidateGetDistanceToNextMilestone(1609.34, 1609.34, log);
+		helper.ValidateGetDistanceToNextMilestone(1000, 609.34, log);
+		helper.ValidateGetDistanceToNextMilestone(2000, 1218.68, log);			
+		return true;		
+	}
+	
+	(:test)
 	function TestComputeReturnsZerosWhenNotActive(log) {
 		var helper = new CasterViewTestsHelper();
-		helper.ValidateReturnsZeros(null, null, null, log);
-		helper.ValidateReturnsZeros(0.0, 0.0, 0.0, log);
-		helper.ValidateReturnsZeros(1.0, 0.0, 0.0, log);
-		helper.ValidateReturnsZeros(0.0, 1.0, 0.0, log);
-		helper.ValidateReturnsZeros(0.0, 0.0, 1.0, log);
+		helper.ValidateComputeReturnsZeros(null, null, null, log);
+		helper.ValidateComputeReturnsZeros(0.0, 0.0, 0.0, log);
+		helper.ValidateComputeReturnsZeros(1.0, 0.0, 0.0, log);
+		helper.ValidateComputeReturnsZeros(0.0, 1.0, 0.0, log);
+		helper.ValidateComputeReturnsZeros(0.0, 0.0, 1.0, log);
 		return true;		
 	}
 		
