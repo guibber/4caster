@@ -32,4 +32,10 @@ class CasterViewTestsHelper {
 		Test.assertEqualMessage(actual, expected, "Expected " + expected + " but got " + actual);	
 		return true;		
 	}
+	
+	function ValidateCompute(speed, distance, time, expected, log) {
+		log.debug("ValidateCompute speed = " + speed + " distance = " + distance + " time = " + time + " expected = " + expected);
+		var actual = new CasterView().compute(NewInfo(speed, distance, time));
+		Test.assertEqualMessage(actual, expected , "Expected " + expected + " but got " + actual);	
+	}
 }

@@ -46,10 +46,7 @@ class CasterViewTests {
 	(:test)
 	function TestComputeReturnsResultWhenActive(log) {
 		var helper = new CasterViewTestsHelper();		
-		var obj = new CasterView();
-		var info = helper.NewInfo(1.0, 1.0, 60000.0);
-		var actual = obj.compute(info);
-		Test.assertEqualMessage(actual, "27:48" , "Expected 27:48 but got " + actual);			
+		helper.ValidateCompute(1.0, 1.0, 60000.0, "27:48", log);			
 		return true;		
 	}
 }
