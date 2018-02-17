@@ -17,7 +17,7 @@ class CasterView extends Ui.SimpleDataField {
         if (ShouldCompute(infoEx)) {        	
         	var secondsLeft = GetDistanceToNextMilestone(infoEx.GetElapsedDistance()) / infoEx.GetCurrentSpeed();
         	var totalSeconds = secondsLeft + infoEx.GetElapsedTime();      	
-        	return "4:10";
+        	return FormatTimeFromSeconds(totalSeconds);
         }
         return "0:00";
     }
