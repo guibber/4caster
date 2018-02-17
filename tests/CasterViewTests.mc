@@ -46,7 +46,9 @@ class CasterViewTests {
 	(:test)
 	function TestComputeReturnsResultWhenActive(log) {
 		var helper = new CasterViewTestsHelper();		
-		helper.ValidateCompute(1.0, 1.0, 60000.0, "27:48", log);			
+		helper.ValidateCompute(1.0, 1609.34, 60000.0, "27:49", log);
+		helper.ValidateCompute(3.0, 1000.0, 240000.0, "7:23", log);
+		helper.ValidateCompute(4.3, 2000, 360800.0, "10:44", log);
 		return true;		
 	}
 }
