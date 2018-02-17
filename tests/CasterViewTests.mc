@@ -33,19 +33,24 @@ class CasterViewTests {
 	}
 	
 	(:test)
-	function TestComputeReturnsZerosWhenNotActive(log) {
+	function TestGetCurrentOrAverageSpeed(log) {
 		var helper = new CasterViewTestsHelper();
-		helper.ValidateComputeReturnsZeros(null, null, null, log);
-		helper.ValidateComputeReturnsZeros(0.0, 0.0, 0.0, log);
-		helper.ValidateComputeReturnsZeros(1.0, 0.0, 0.0, log);
-		helper.ValidateComputeReturnsZeros(0.0, 1.0, 0.0, log);
-		helper.ValidateComputeReturnsZeros(0.0, 0.0, 1.0, log);
+		helper.ValidateGetCurrentOrAverageSpeed(0.0, 800.00, 240000.0, 3.333333, log);
+		helper.ValidateGetCurrentOrAverageSpeed(4.4, 800.00, 240000.0, 4.4, log);		
 		return true;		
 	}
-		
+	
 	(:test)
-	function TestComputeReturnsResultWhenActive(log) {
-		var helper = new CasterViewTestsHelper();		
+	function TestCompute(log) {
+		var helper = new CasterViewTestsHelper();
+		helper.ValidateCompute(null, null, null, "0:00", log);
+		helper.ValidateCompute(0.0, 0.0, 0.0, "0:00", log);
+		helper.ValidateCompute(1.0, 0.0, 0.0, "0:00", log);
+		helper.ValidateCompute(0.0, 1.0, 0.0, "0:00", log);
+		helper.ValidateCompute(0.0, 0.0, 1.0, "0:00", log);
+		helper.ValidateCompute(0.0, 800.00, 240000.0, "8:02", log);
+		helper.ValidateCompute(0.0, 800.00, 241000.0, "8:04", log);
+		helper.ValidateCompute(0.0, 800.00, 300000.0, "10:03", log);	
 		helper.ValidateCompute(1.0, 1609.34, 60000.0, "27:49", log);
 		helper.ValidateCompute(3.0, 1000.0, 240000.0, "7:23", log);
 		helper.ValidateCompute(4.3, 2000, 360800.0, "10:44", log);

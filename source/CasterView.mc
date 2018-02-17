@@ -14,8 +14,9 @@ class CasterView extends Ui.SimpleDataField {
     function compute(info) {
     	var infoEx = new InfoEx(info);
     	System.println("Current Speed = " + infoEx.GetCurrentSpeed() + " ElapsedDistance = " + infoEx.GetElapsedDistance());
-        if (ShouldCompute(infoEx)) {        	
-        	var secondsLeft = GetDistanceToNextMilestone(infoEx.GetElapsedDistance()) / infoEx.GetCurrentSpeed();
+        if (ShouldCompute(infoEx)) {
+        	var speed = GetCurrentOrAverageSpeed(infoEx);        	
+        	var secondsLeft = GetDistanceToNextMilestone(infoEx.GetElapsedDistance()) / speed;
         	var totalSeconds = secondsLeft + (infoEx.GetElapsedTime() / 1000);      	
         	return FormatTimeFromSeconds(totalSeconds);
         }
@@ -23,8 +24,7 @@ class CasterView extends Ui.SimpleDataField {
     }
         
     function ShouldCompute(infoEx) {
-    	return infoEx.GetCurrentSpeed() > 0 and
-    		   infoEx.GetElapsedTime() > 0 and
+    	return infoEx.GetElapsedTime() > 0 and
     		   infoEx.GetElapsedDistance() > 0;
     }
     
@@ -37,5 +37,9 @@ class CasterView extends Ui.SimpleDataField {
     	var minutes = Math.floor(seconds / 60.0);
     	var remainder = Math.floor(seconds - (minutes * 60.0));
     	return Lang.format("$1$:$2$", [minutes.format("%d"), remainder.format("%02d")]);
+    }
+    
+    function GetCurrentOrAverageSpeed(infoEx) {
+    	return infoEx.GetCurrentSpeed() > 0 ? infoEx.GetCurrentSpeed() : infoEx.GetElapsedDistance() / (infoEx.GetElapsedTime() / 1000);
     }
 }

@@ -38,4 +38,10 @@ class CasterViewTestsHelper {
 		var actual = new CasterView().compute(NewInfo(speed, distance, time));
 		Test.assertEqualMessage(actual, expected , "Expected " + expected + " but got " + actual);	
 	}
+	
+	function ValidateGetCurrentOrAverageSpeed(speed, distance, time, expected, log) {
+		log.debug("ValidateGetCurrentOrAverageSpeed speed = " + speed + " distance = " + distance + " time = " + time + " expected = " + expected);
+		var actual = new CasterView().GetCurrentOrAverageSpeed(new InfoEx(NewInfo(speed, distance, time)));
+		Test.assertEqualMessage(Math.round(actual * 100), Math.round(expected * 100) , "Expected " + expected + " but got " + Math.round(actual * 100)/100);	
+	}
 }
