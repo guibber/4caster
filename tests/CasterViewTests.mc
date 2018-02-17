@@ -10,12 +10,25 @@ class CasterViewTests {
 	}
 	
 	(:test)
-	function TestGetNextMilestone(log) {
+	function TestGetDistanceToNextMilestone(log) {
 		var helper = new CasterViewTestsHelper();
 		helper.ValidateGetDistanceToNextMilestone(0, 1609.34, log);
 		helper.ValidateGetDistanceToNextMilestone(1609.34, 1609.34, log);
 		helper.ValidateGetDistanceToNextMilestone(1000, 609.34, log);
 		helper.ValidateGetDistanceToNextMilestone(2000, 1218.68, log);			
+		return true;		
+	}
+	
+	(:test)
+	function TestFormatTimeFromSeconds(log) {
+		var helper = new CasterViewTestsHelper();
+		helper.ValidateFormatTimeFromSeconds(0, "0:00", log);
+		helper.ValidateFormatTimeFromSeconds(1, "0:01", log);
+		helper.ValidateFormatTimeFromSeconds(59, "0:59", log);
+		helper.ValidateFormatTimeFromSeconds(60, "1:00", log);
+		helper.ValidateFormatTimeFromSeconds(500, "8:20", log);
+		helper.ValidateFormatTimeFromSeconds(1001, "16:41", log);
+		helper.ValidateFormatTimeFromSeconds(59.1, "0:59", log);					
 		return true;		
 	}
 	

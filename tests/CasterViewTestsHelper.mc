@@ -24,4 +24,12 @@ class CasterViewTestsHelper {
 		Test.assertEqualMessage(Math.round(actual * 100), Math.round(expected * 100) , "Expected " + expected + " but got " + Math.round(actual * 100)/100);	
 		return true;		
 	}
+	
+	function ValidateFormatTimeFromSeconds(seconds, expected, log) {
+		log.debug("ValidateFormatTimeFromSeconds seconds = " + seconds + " expected = " + expected);
+		var obj = new CasterView();		
+		var actual = obj.FormatTimeFromSeconds(seconds);
+		Test.assertEqualMessage(actual, expected, "Expected " + expected + " but got " + actual);	
+		return true;		
+	}
 }
