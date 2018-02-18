@@ -27,8 +27,7 @@ class CasterView extends Ui.SimpleDataField {
     }
     
     function GetDistanceToNextMilestone(distance) {
-    	var cnt = Math.floor(distance / _MilestoneSize) + 1;    	
-    	return ((cnt * _MilestoneSize) - distance);
+    	return (((Math.floor(distance / _MilestoneSize) + 1) * _MilestoneSize) - distance);
     }
     
     function FormatTimeFromSeconds(seconds) {
