@@ -28,7 +28,10 @@ class CasterViewTests {
 		helper.ValidateFormatTimeFromSeconds(60, "1:00", log);
 		helper.ValidateFormatTimeFromSeconds(500, "8:20", log);
 		helper.ValidateFormatTimeFromSeconds(1001, "16:41", log);
-		helper.ValidateFormatTimeFromSeconds(59.1, "0:59", log);					
+		helper.ValidateFormatTimeFromSeconds(59.1, "0:59", log);
+		helper.ValidateFormatTimeFromSeconds(3661, "1:01:01", log);
+		helper.ValidateFormatTimeFromSeconds(82861, "23:01:01", log);
+		helper.ValidateFormatTimeFromSeconds(90061, "25:01:01", log);				
 		return true;		
 	}
 	

@@ -34,9 +34,12 @@ class CasterView extends Ui.SimpleDataField {
     }
     
     function FormatTimeFromSeconds(seconds) {
-    	var minutes = Math.floor(seconds / 60.0);
-    	var remainder = Math.floor(seconds - (minutes * 60.0));
-    	return Lang.format("$1$:$2$", [minutes.format("%d"), remainder.format("%02d")]);
+    	var hours = Math.floor(seconds / 3600.0);
+    	var minutes = Math.floor((seconds - (hours * 3600.0)) / 60.0);
+    	var remainder = Math.floor(seconds - (hours * 3600.0) - (minutes * 60.0));
+    	return (hours > 0) 
+    		? Lang.format("$1$:$2$:$3$", [hours.format("%d"), minutes.format("%02d"), remainder.format("%02d")])
+    		: Lang.format("$1$:$2$", [minutes.format("%d"), remainder.format("%02d")]);
     }
     
     function GetCurrentOrAverageSpeed(infoEx) {
