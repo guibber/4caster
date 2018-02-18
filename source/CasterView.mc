@@ -13,12 +13,17 @@ class CasterView extends Ui.SimpleDataField {
     	var infoEx = new InfoEx(info);
     	System.println("Current Speed = " + infoEx.GetCurrentSpeed() + " ElapsedDistance = " + infoEx.GetElapsedDistance());
         if (ShouldCompute(infoEx)) {
-        	var speed = GetCurrentOrAverageSpeed(infoEx);        	
-        	var secondsLeft = GetDistanceToNextMilestone(infoEx.GetElapsedDistance()) / speed;
-        	var totalSeconds = secondsLeft + (infoEx.GetElapsedTime() / 1000);      	
-        	return FormatTimeFromSeconds(totalSeconds);
+        	return FormatTimeFromSeconds(GetTotalSecondsAtNextMilestone(infoEx));
         }
         return "0:00";
+    }
+    
+    function GetSecondsLeftUntilMilestone(infoEx) {
+    	return GetDistanceToNextMilestone(infoEx.GetElapsedDistance()) / GetCurrentOrAverageSpeed(infoEx);
+    }
+    
+    function GetTotalSecondsAtNextMilestone(infoEx) {
+    	return GetSecondsLeftUntilMilestone(infoEx) + (infoEx.GetElapsedTime() / 1000);
     }
         
     function ShouldCompute(infoEx) {
