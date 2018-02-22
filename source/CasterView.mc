@@ -11,7 +11,7 @@ class CasterView extends Ui.SimpleDataField {
 
     function compute(info) {
     	var infoEx = new InfoEx(info);
-    	System.println("Current Speed = " + infoEx.GetCurrentSpeed() + " ElapsedDistance = " + infoEx.GetElapsedDistance());
+    	System.println("Current Speed = " + infoEx.GetCurrentSpeed() + " ElapsedDistance = " + infoEx.GetElapsedDistance() + " TimerTime = " + infoEx.GetTimerTime() + " ElapsedTime = " + infoEx.GetElapsedTime());
         if (ShouldCompute(infoEx)) {
         	return FormatTimeFromSeconds(GetTotalSecondsAtNextMilestone(infoEx));
         }
@@ -23,11 +23,11 @@ class CasterView extends Ui.SimpleDataField {
     }
     
     function GetTotalSecondsAtNextMilestone(infoEx) {
-    	return GetSecondsLeftUntilMilestone(infoEx) + (infoEx.GetElapsedTime() / 1000);
+    	return GetSecondsLeftUntilMilestone(infoEx) + (infoEx.GetTimerTime() / 1000);
     }
         
     function ShouldCompute(infoEx) {
-    	return infoEx.GetElapsedTime() > 0 and
+    	return infoEx.GetTimerTime() > 0 and
     		   infoEx.GetElapsedDistance() > 0;
     }
     
@@ -45,6 +45,6 @@ class CasterView extends Ui.SimpleDataField {
     }
     
     function GetCurrentOrAverageSpeed(infoEx) {
-    	return infoEx.GetCurrentSpeed() > 0 ? infoEx.GetCurrentSpeed() : infoEx.GetElapsedDistance() / (infoEx.GetElapsedTime() / 1000);
+    	return infoEx.GetCurrentSpeed() > 0 ? infoEx.GetCurrentSpeed() : infoEx.GetElapsedDistance() / (infoEx.GetTimerTime() / 1000);
     }
 }

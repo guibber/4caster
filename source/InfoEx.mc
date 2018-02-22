@@ -15,4 +15,8 @@ class InfoEx {
     function GetElapsedTime() {
     	return mInfo.elapsedTime != null ? mInfo.elapsedTime : 0.0;
     }
+
+    function GetTimerTime() {
+    	return mInfo.timerTime != null ? mInfo.timerTime : 0.0;
+    }    
 }

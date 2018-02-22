@@ -5,7 +5,7 @@ class CasterViewTestsHelper {
 		var info = new Activity.Info();
 		info.currentSpeed = speed;
 		info.elapsedDistance = distance;
-		info.elapsedTime = time;
+		info.timerTime = time;
 		return info;
 	}
 	
