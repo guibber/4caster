@@ -1,4 +1,5 @@
 using Toybox.Math;
+using CasterCore.Utils as Utils;
 
 class CasterViewTestsHelper {
 	function NewInfo(speed, distance, time) {
@@ -41,7 +42,7 @@ class CasterViewTestsHelper {
 	
 	function ValidateGetCurrentOrAverageSpeed(speed, distance, time, expected, log) {
 		log.debug("ValidateGetCurrentOrAverageSpeed speed = " + speed + " distance = " + distance + " time = " + time + " expected = " + expected);
-		var actual = new CasterView().GetCurrentOrAverageSpeed(new InfoEx(NewInfo(speed, distance, time)));
+		var actual = new CasterView().GetCurrentOrAverageSpeed(new Utils.InfoEx(NewInfo(speed, distance, time)));
 		Test.assertEqualMessage(Math.round(actual * 100), Math.round(expected * 100) , "Expected " + expected + " but got " + Math.round(actual * 100)/100);	
 	}
 }

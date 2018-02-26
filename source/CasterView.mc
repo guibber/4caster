@@ -1,5 +1,6 @@
 using Toybox.WatchUi as Ui;
 using Toybox.System;
+using CasterCore.Utils as Utils;
 
 class CasterView extends Ui.SimpleDataField {
 	const _MilestoneSize = 1609.34;
@@ -10,7 +11,7 @@ class CasterView extends Ui.SimpleDataField {
     }
 
     function compute(info) {
-    	var infoEx = new InfoEx(info);
+    	var infoEx = new Utils.InfoEx(info);
     	System.println("Current Speed = " + infoEx.GetCurrentSpeed() + " ElapsedDistance = " + infoEx.GetElapsedDistance() + " TimerTime = " + infoEx.GetTimerTime() + " ElapsedTime = " + infoEx.GetElapsedTime());
         if (ShouldCompute(infoEx)) {
         	return FormatTimeFromSeconds(GetTotalSecondsAtNextMilestone(infoEx));
