@@ -1,4 +1,5 @@
 using Toybox.Application as App;
+using CasterCore.Config as Cfg;
 
 class CasterApp extends App.AppBase {
 
@@ -16,7 +17,7 @@ class CasterApp extends App.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() {
-        return [ new CasterView() ];
+        return [ new CasterView(new Cfg.Settings("4caster", Cfg.DisplayModeStandard, 1609.34)) ];
     }
 
 }

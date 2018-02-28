@@ -5,6 +5,7 @@
         <iq:languages/>
         <iq:barrels/>
         <iq:annotations>
+            <iq:annotation>Config</iq:annotation>
             <iq:annotation>Utils</iq:annotation>
         </iq:annotations>
     </iq:barrel>

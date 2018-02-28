@@ -1,10 +1,11 @@
 using Toybox.Test;
 using Toybox.Activity;
+using CasterCore.Config as Cfg;
 
 class CasterViewTests {
 	(:test)
 	function TestProps(log) {
-		var obj = new CasterView();
+		var obj = new CasterView(new Cfg.Settings("4caster", Cfg.DisplayModeStandard, 1609.34));
 		Test.assertEqualMessage(obj.label, "4caster" , "Expected 4caster but got " + obj.label);	
 		return true;		
 	}

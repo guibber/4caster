@@ -1,5 +1,6 @@
 using Toybox.Math;
 using CasterCore.Utils as Utils;
+using CasterCore.Config as Cfg;
 
 class CasterViewTestsHelper {
 	function NewInfo(speed, distance, time) {
@@ -12,7 +13,7 @@ class CasterViewTestsHelper {
 	
 	function ValidateComputeReturnsZeros(speed, distance, time, log) {
 		log.debug("ValidateReturnsZeros with speed = " + speed + " distance = " + distance + " time = " + time);
-		var obj = new CasterView();		
+		var obj = new CasterView(new Cfg.Settings("4caster", Cfg.DisplayModeStandard, 1609.34));		
 		var actual = obj.compute(NewInfo(speed, distance, time));		
 		Test.assertEqualMessage(actual, "0:00" , "Expected 0:00 but got " + actual);
 		return true;
@@ -20,7 +21,7 @@ class CasterViewTestsHelper {
 	
 	function ValidateGetDistanceToNextMilestone(distance, expected, log) {
 		log.debug("ValidateGetDistanceToNextMilestone distance = " + distance + " expected = " + expected);
-		var obj = new CasterView();		
+		var obj = new CasterView(new Cfg.Settings("4caster", Cfg.DisplayModeStandard, 1609.34));
 		var actual = obj.GetDistanceToNextMilestone(distance);
 		Test.assertEqualMessage(Math.round(actual * 100), Math.round(expected * 100) , "Expected " + expected + " but got " + Math.round(actual * 100)/100);	
 		return true;		
@@ -28,7 +29,7 @@ class CasterViewTestsHelper {
 	
 	function ValidateFormatTimeFromSeconds(seconds, expected, log) {
 		log.debug("ValidateFormatTimeFromSeconds seconds = " + seconds + " expected = " + expected);
-		var obj = new CasterView();		
+		var obj = new CasterView(new Cfg.Settings("4caster", Cfg.DisplayModeStandard, 1609.34));
 		var actual = obj.FormatTimeFromSeconds(seconds);
 		Test.assertEqualMessage(actual, expected, "Expected " + expected + " but got " + actual);	
 		return true;		
@@ -36,13 +37,13 @@ class CasterViewTestsHelper {
 	
 	function ValidateCompute(speed, distance, time, expected, log) {
 		log.debug("ValidateCompute speed = " + speed + " distance = " + distance + " time = " + time + " expected = " + expected);
-		var actual = new CasterView().compute(NewInfo(speed, distance, time));
+		var actual = new CasterView(new Cfg.Settings("4caster", Cfg.DisplayModeStandard, 1609.34)).compute(NewInfo(speed, distance, time));
 		Test.assertEqualMessage(actual, expected , "Expected " + expected + " but got " + actual);	
 	}
 	
 	function ValidateGetCurrentOrAverageSpeed(speed, distance, time, expected, log) {
 		log.debug("ValidateGetCurrentOrAverageSpeed speed = " + speed + " distance = " + distance + " time = " + time + " expected = " + expected);
-		var actual = new CasterView().GetCurrentOrAverageSpeed(new Utils.InfoEx(NewInfo(speed, distance, time)));
+		var actual = new CasterView(new Cfg.Settings("4caster", Cfg.DisplayModeStandard, 1609.34)).GetCurrentOrAverageSpeed(new Utils.InfoEx(NewInfo(speed, distance, time)));
 		Test.assertEqualMessage(Math.round(actual * 100), Math.round(expected * 100) , "Expected " + expected + " but got " + Math.round(actual * 100)/100);	
 	}
 }

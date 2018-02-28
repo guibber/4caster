@@ -3,11 +3,13 @@ using Toybox.System;
 using CasterCore.Utils as Utils;
 
 class CasterView extends Ui.SimpleDataField {
-	const _MilestoneSize = 1609.34;
-    
-    function initialize() {
+	
+	var mSettings = null;
+	
+	function initialize(settings) {
         SimpleDataField.initialize();
-        label = "4caster";
+        mSettings = settings;
+        label = mSettings.GetLabel();
     }
 
     function compute(info) {
@@ -33,7 +35,7 @@ class CasterView extends Ui.SimpleDataField {
     }
     
     function GetDistanceToNextMilestone(distance) {
-    	return (((Math.floor(distance / _MilestoneSize) + 1) * _MilestoneSize) - distance);
+    	return (((Math.floor(distance / mSettings.GetMilestoneMeters()) + 1) * mSettings.GetMilestoneMeters()) - distance);
     }
     
     function FormatTimeFromSeconds(seconds) {
