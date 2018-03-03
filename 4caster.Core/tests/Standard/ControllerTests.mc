@@ -16,7 +16,7 @@ module CasterCore {
 		
 		function ValidateGetDistanceToNextMilestone(distance, expected, log) {
 			log.debug("ValidateGetDistanceToNextMilestone distance = " + distance + " expected = " + expected);
-			var obj = new M.Controller(new Cfg.Settings("4caster", 1609.34));
+			var obj = new M.Controller(new Cfg.Settings("4caster", Cfg.DisplayModeStandard, 1609.34));
 			var actual = obj.GetDistanceToNextMilestone(distance);
 			Test.assertEqualMessage(Math.round(actual * 100), Math.round(expected * 100) , "Expected " + expected + " but got " + Math.round(actual * 100)/100);	
 			return true;		
@@ -24,13 +24,13 @@ module CasterCore {
 		
 		function ValidateCalculateTotalSecondsAtNextMilestone(speed, distance, time, expected, log) {
 			log.debug("ValidateCalculateTotalSecondsAtNextMilestone speed = " + speed + " distance = " + distance + " time = " + time + " expected = " + expected);
-			var actual = new M.Controller(new Cfg.Settings("4caster", 1609.34)).CalculateTotalSecondsAtNextMilestone(NewInfo(speed, distance, time));
+			var actual = new M.Controller(new Cfg.Settings("4caster", Cfg.DisplayModeStandard, 1609.34)).CalculateTotalSecondsAtNextMilestone(NewInfo(speed, distance, time));
 			Test.assertEqualMessage(actual, expected , "Expected " + expected + " but got " + actual);	
 		}
 		
 		function ValidateGetCurrentOrAverageSpeed(speed, distance, time, expected, log) {
 			log.debug("ValidateGetCurrentOrAverageSpeed speed = " + speed + " distance = " + distance + " time = " + time + " expected = " + expected);
-			var actual = new M.Controller(new Cfg.Settings("4caster", 1609.34)).GetCurrentOrAverageSpeed(new Utils.InfoEx(NewInfo(speed, distance, time)));
+			var actual = new M.Controller(new Cfg.Settings("4caster", Cfg.DisplayModeStandard, 1609.34)).GetCurrentOrAverageSpeed(new Utils.InfoEx(NewInfo(speed, distance, time)));
 			Test.assertEqualMessage(Math.round(actual * 100), Math.round(expected * 100) , "Expected " + expected + " but got " + Math.round(actual * 100)/100);	
 		}	
 	}
@@ -38,7 +38,7 @@ module CasterCore {
 	class ControllerTests {
 		(:test)
 		function TestGetLabel(log) {
-			var actual = new M.Controller(new Cfg.Settings("label", null)).GetLabel();
+			var actual = new M.Controller(new Cfg.Settings("label", null, null)).GetLabel();
 			Test.assertEqualMessage(actual, "label" , "Expected label but got " + actual);
 			return true;		
 		}
