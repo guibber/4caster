@@ -2,6 +2,6 @@
 # on the project and select "Configure Monkey Barrels".
 
 CasterCore = "barrels\4caster.Core-1.0.0.barrel"
-base.CasterCore.annotations = Utils;Config
+base.CasterCore.annotations = Utils;Config;Standard
 base.barrelPath = $(base.barrelPath);$(CasterCore)
 
