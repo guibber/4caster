@@ -1,10 +1,30 @@
+using Toybox.WatchUi as Ui;
 using CasterCore.Utils as Utils;
+using CasterCore.Config as Cfg;
 
 module CasterCore {
 	(:Standard)
 	module Standard {
 		function BuildView(settings) {
 			return new CasterCore.Standard.View(new CasterCore.Standard.Controller(settings));
+		}
+		
+		function BuildDataField() {
+			return new CasterCore.Standard.DataField(CasterCore.Standard.BuildView(new Cfg.Settings("4caster", Cfg.DisplayModeStandard, 1609.34)));
+		}
+		
+		class DataField extends Ui.SimpleDataField {
+			var mView = null;
+			
+			function initialize(view) {
+		        SimpleDataField.initialize();
+		        mView = view;
+		        label = mView.GetLabel();
+		    }
+		
+		    function compute(info) {
+		    	return mView.GetComputeViewString(info);
+		    }
 		}
 		
 		class View {
