@@ -11,7 +11,7 @@ module CasterCore {
 		}
 		
 		function BuildDataField() {
-			return new Std.DataField(Std.BuildView(new Cfg.Settings("4caster", Cfg.DisplayModeStandard, 1609.34)));
+			return new Std.DataField(Std.BuildView(new Cfg.Settings("4caster", 1609.34)));
 		}
 		
 		class DataField extends Ui.SimpleDataField {
