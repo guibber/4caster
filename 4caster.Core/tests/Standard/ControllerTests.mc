@@ -30,9 +30,28 @@ module CasterCore {
 		
 		function ValidateGetCurrentOrAverageSpeed(speed, distance, time, expected, log) {
 			log.debug("ValidateGetCurrentOrAverageSpeed speed = " + speed + " distance = " + distance + " time = " + time + " expected = " + expected);
-			var actual = new M.Controller(new Cfg.Settings("4caster", 1609.34)).GetCurrentOrAverageSpeed(new Utils.InfoEx(NewInfo(speed, distance, time)));
+			var actual = new M.Controller(new Cfg.Settings(null, 1609.34)).GetCurrentOrAverageSpeed(new Utils.InfoEx(NewInfo(speed, distance, time)));
 			Test.assertEqualMessage(Math.round(actual * 100), Math.round(expected * 100) , "Expected " + expected + " but got " + Math.round(actual * 100)/100);	
-		}	
+		}
+		
+		function ValidateAdjustLapInfo(currentLap, currentLastLapTotalSeconds, distance, time, expectedLap, expectedLastLapTotalSeconds, log) {
+			log.debug("ValidateAdjustLapInfo distance = " + distance + " time = " + time + " expectedLap = " + expectedLap + " expectedLastLapTotalSeconds = " + expectedLastLapTotalSeconds);
+			var settings = new Cfg.Settings(null, 1609.34);
+			settings.SetLapCount(currentLap);
+			settings.SetLastLapTotalSeconds(currentLastLapTotalSeconds);
+			new M.Controller(settings).AdjustLapInfo(new Utils.InfoEx(NewInfo(null, distance, time)));
+			Test.assertEqualMessage(settings.GetLapCount(), expectedLap , "Expected lap = " + expectedLap + " but got " + settings.GetLapCount());
+			Test.assertEqualMessage(settings.GetLastLapTotalSeconds(), expectedLastLapTotalSeconds , "Expected lap total seconds =  " + expectedLastLapTotalSeconds + " but got " + settings.GetLastLapTotalSeconds());
+		}
+		
+		function ValidateCalculateLapSecondsAtNextMilestone(currentLap, currentLastLapTotalSeconds, speed, distance, time, expected, log) {
+			log.debug("ValidateCalculateLapSecondsAtNextMilestone speed = " + speed + " distance = " + distance + " time = " + time + " expected = " + expected);
+			var settings = new Cfg.Settings(null, 1609.34);
+			settings.SetLapCount(currentLap);
+			settings.SetLastLapTotalSeconds(currentLastLapTotalSeconds);
+			var actual = new M.Controller(settings).CalculateLapSecondsAtNextMilestone(NewInfo(speed, distance, time));
+			Test.assertEqualMessage(actual, expected , "Expected " + expected + " but got " + actual);	
+		}
 	}
 
 	class ControllerTests {
@@ -62,7 +81,7 @@ module CasterCore {
 		}
 		
 		(:test)
-		function TestCompute(log) {
+		function TestCalculateTotalSecondsAtNextMilestone(log) {
 			var helper = new CasterCore.ControllerTestsHelper();
 			helper.ValidateCalculateTotalSecondsAtNextMilestone(null, null, null, 0, log);
 			helper.ValidateCalculateTotalSecondsAtNextMilestone(0.0, 0.0, 0.0, 0, log);
@@ -76,6 +95,40 @@ module CasterCore {
 			helper.ValidateCalculateTotalSecondsAtNextMilestone(3.0, 1000.0, 240000.0, 443, log);
 			helper.ValidateCalculateTotalSecondsAtNextMilestone(4.3, 2000, 360800.0, 644, log);
 			return true;		
-		}	
+		}
+		
+		(:test)
+		function TestAdjustLapInfo(log) {
+			var helper = new CasterCore.ControllerTestsHelper();
+			helper.ValidateAdjustLapInfo(0, 0, 0, 0, 0, 0, log);
+			helper.ValidateAdjustLapInfo(0, 0, 1609.33, 240000, 0, 0, log);
+			helper.ValidateAdjustLapInfo(0, 0, 1609.34, 240000, 1, 240, log);
+			helper.ValidateAdjustLapInfo(0, 240, 1609.35, 240000, 1, 240, log);
+			helper.ValidateAdjustLapInfo(1, 240, 1609.34, 241000, 1, 240, log);
+			helper.ValidateAdjustLapInfo(1, 240, 1809.34, 260000, 1, 240, log);
+			helper.ValidateAdjustLapInfo(1, 240, 3218.67, 310000, 1, 240, log);
+			helper.ValidateAdjustLapInfo(1, 240, 3218.68, 310000, 2, 310, log);
+		    helper.ValidateAdjustLapInfo(1, 240, 3218.69, 310000, 2, 310, log);
+			return true;
+		}
+		
+		(:test)
+		function TestCalculateLapSecondsAtNextMilestone(log) {
+			var helper = new CasterCore.ControllerTestsHelper();
+			helper.ValidateCalculateLapSecondsAtNextMilestone(0, 0.0, null, null, null, 0, log);
+			helper.ValidateCalculateLapSecondsAtNextMilestone(0, 0.0, 0.0, 0.0, 0.0, 0, log);
+			helper.ValidateCalculateLapSecondsAtNextMilestone(0, 0.0, 1.0, 0.0, 0.0, 0, log);
+			helper.ValidateCalculateLapSecondsAtNextMilestone(0, 0.0, 0.0, 1.0, 0.0, 0, log);
+			helper.ValidateCalculateLapSecondsAtNextMilestone(0, 0.0, 0.0, 0.0, 1.0, 0, log);
+			helper.ValidateCalculateLapSecondsAtNextMilestone(0, 0.0, 0.0, 800.00, 240000.0, 483, log);
+			helper.ValidateCalculateLapSecondsAtNextMilestone(0, 0.0, 0.0, 800.00, 241000.0, 485, log);
+			helper.ValidateCalculateLapSecondsAtNextMilestone(0, 0.0, 0.0, 800.00, 300000.0, 604, log);	
+			helper.ValidateCalculateLapSecondsAtNextMilestone(0, 0.0, 1.0, 1609.34, 60000.0, 1609, log);
+			helper.ValidateCalculateLapSecondsAtNextMilestone(0, 0.0, 3.0, 1000.0, 240000.0, 443, log);
+			helper.ValidateCalculateLapSecondsAtNextMilestone(1, 100.0, 4.3, 2000, 360800.0, 544, log);
+			helper.ValidateCalculateLapSecondsAtNextMilestone(1, 200.0, 4.3, 2800, 360800.0, 258, log);
+			helper.ValidateCalculateLapSecondsAtNextMilestone(1, 500.0, 5.0, 3018.68, 718000.0, 258, log);
+			return true;		
+		}
 	}
 }

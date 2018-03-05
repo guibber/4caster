@@ -24,6 +24,11 @@ module CasterCore {
 			Test.assertEqualMessage(info, mExpectedInfo, "Invalid info object passed to method CalculateTotalSecondsAtNextMilestone");
 			return 123;
 		}
+		
+		function CalculateLapSecondsAtNextMilestone(info) {
+			Test.assertEqualMessage(info, mExpectedInfo, "Invalid info object passed to method CalculateTotalSecondsAtNextMilestone");
+			return 12;
+		}
 	}
 	
 	function ValidateFormatTimeFromSeconds(seconds, expected, log) {
