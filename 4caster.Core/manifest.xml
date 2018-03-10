@@ -4,10 +4,6 @@
         <iq:permissions/>
         <iq:languages/>
         <iq:barrels/>
-        <iq:annotations>
-            <iq:annotation>Config</iq:annotation>
-            <iq:annotation>Standard</iq:annotation>
-            <iq:annotation>Utils</iq:annotation>
-        </iq:annotations>
+        <iq:annotations/>
     </iq:barrel>
 </iq:manifest>

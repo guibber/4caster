@@ -1,5 +1,4 @@
 module CasterCore {
-	(:Config)
 	module Config {
 		class Settings {
 			var mLabel = "";

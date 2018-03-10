@@ -1,5 +1,4 @@
 module CasterCore {
-	(:Utils)
 	module Utils {
 		class InfoEx {
 			var mInfo = null;

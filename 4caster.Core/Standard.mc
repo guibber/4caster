@@ -4,7 +4,6 @@ using CasterCore.Config as Cfg;
 using CasterCore.Standard as Std;
 
 module CasterCore {
-	(:Standard)
 	module Standard {
 		function BuildView(settings) {
 			return new Std.View(new Std.Controller(settings));
