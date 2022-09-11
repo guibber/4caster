@@ -95,6 +95,10 @@ module CasterCore {
 		    function GetLabel() {
 		    	return mSettings.GetLabel();
 		    }
+
+			function GetSafeDivisor(value) {
+				return value > 0 ? value : 1;
+			}
 		    
 		    function CalculateTotalSecondsAtNextMilestone(info) {
 		    	var infoEx = new Utils.InfoEx(info);
@@ -117,7 +121,7 @@ module CasterCore {
 		    
 		    function AdjustLapInfo(infoEx) {
 		    	var lapState = mSettings.GetLapCount();
-		    	var currentLap = Math.floor(infoEx.GetElapsedDistance() / mSettings.GetMilestoneMeters()).toNumber();
+		    	var currentLap = Math.floor(infoEx.GetElapsedDistance() / GetSafeDivisor(mSettings.GetMilestoneMeters())).toNumber();
 		    	if (currentLap > lapState) {
 		    		mSettings.SetLapCount(currentLap);
 		    		mSettings.SetLastLapTotalSeconds(infoEx.GetTimerTime() / 1000);
@@ -129,7 +133,7 @@ module CasterCore {
     		}
     		
     		function GetSecondsLeftUntilMilestone(infoEx) {
-		    	return GetDistanceToNextMilestone(infoEx.GetElapsedDistance()) / GetCurrentOrAverageSpeed(infoEx);
+		    	return GetDistanceToNextMilestone(infoEx.GetElapsedDistance()) / GetSafeDivisor(GetCurrentOrAverageSpeed(infoEx));
 		    }
 		    
 		    function GetTotalSecondsAtNextMilestone(infoEx) {
@@ -137,11 +141,11 @@ module CasterCore {
 		    }
 		    
 		    function GetDistanceToNextMilestone(distance) {
-		    	return (((Math.floor(distance / mSettings.GetMilestoneMeters()) + 1) * mSettings.GetMilestoneMeters()) - distance);
+		    	return (((Math.floor(distance / GetSafeDivisor(mSettings.GetMilestoneMeters())) + 1) * mSettings.GetMilestoneMeters()) - distance);
 		    }
 		    
 		    function GetCurrentOrAverageSpeed(infoEx) {
-		    	return infoEx.GetCurrentSpeed() > 0 ? infoEx.GetCurrentSpeed() : infoEx.GetElapsedDistance() / (infoEx.GetTimerTime() / 1000);
+		    	return infoEx.GetCurrentSpeed() > 0 ? infoEx.GetCurrentSpeed() : infoEx.GetElapsedDistance() / GetSafeDivisor((infoEx.GetTimerTime() / 1000));
 		    }
 		}
 	}	
